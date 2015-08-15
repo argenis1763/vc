@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * This is the model class for table "essays_detail".
+ *
+ * The followings are the available columns in table 'essays_detail':
+ * @property integer $id
+ * @property string $content
+ * @property string $lastdate
+ * @property integer $essays_has_cruge_user_id_essay_cruge
+ *
+ * The followings are the available model relations:
+ * @property EssaysHasCrugeUser $essaysHasCrugeUserIdEssayCruge
+ */
+class EssaysDetail extends CActiveRecord
+{
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'essays_detail';
+	}
+
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+			//array('essays_has_cruge_user_id_essay_cruge', 'required'),
+			array('essays_has_cruge_user_id_essay_cruge', 'numerical', 'integerOnly'=>true),
+			array('lastdate', 'length', 'max'=>30),
+			array('content', 'safe'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, content, lastdate, essays_has_cruge_user_id_essay_cruge', 'safe', 'on'=>'search'),
+		);
+	}
+
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'essaysHasCrugeUserIdEssayCruge' => array(self::BELONGS_TO, 'EssaysHasCrugeUser', 'essays_has_cruge_user_id_essay_cruge'),
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'content' => 'Content',
+			'lastdate' => 'Lastdate',
+			'essays_has_cruge_user_id_essay_cruge' => 'Essays Has Cruge User Id Essay Cruge',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 *
+	 * Typical usecase:
+	 * - Initialize the model fields with values from filter form.
+	 * - Execute this method to get CActiveDataProvider instance which will filter
+	 * models according to data in model fields.
+	 * - Pass data provider to CGridView, CListView or any similar widget.
+	 *
+	 * @return CActiveDataProvider the data provider that can return the models
+	 * based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// @todo Please modify the following code to remove attributes that should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('content',$this->content,true);
+		$criteria->compare('lastdate',$this->lastdate,true);
+		$criteria->compare('essays_has_cruge_user_id_essay_cruge',$this->essays_has_cruge_user_id_essay_cruge);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return EssaysDetail the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
+}

@@ -1,0 +1,6 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `procedureInsert_StudentsParents```(IN `firstname` VARCHAR(64) CHARSET utf8, IN `lastname` VARCHAR(64) CHARSET utf8, IN `email` VARCHAR(128) CHARSET utf8, IN `phone` VARCHAR(64) CHARSET utf8, IN `iduser` INT(11))
+    NO SQL
+BEGIN
+insert into `parents`(`firstname`,`lastname`,`email`,`tlf`,`cruge_user_iduser`) 
+values (firstname,lastname,email,phone,iduser);
+END
